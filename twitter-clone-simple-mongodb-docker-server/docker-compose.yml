@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    container_name: server-web-twitter-clone-simple
+    command: yarn dev
+    volumes:
+      - /app
+      - /app/node_modules
+    ports:
+      - "3020:4020"
+        # MongoDB services
+  mongo_db:
+    container_name: mongodb-twitter-clone-simple
+    image: mongo:latest
+    restart: always
+    volumes:
+      - mongo_db:/data/db
+  api:
+    build: .
+    container_name: server-api-twitter-clone-simple
+    ports:
+      - "4020:3020"
+    environment:
+      PORT: 3020
+      MONGODB_URI: mongodb://mongo_db:27017
+      DB_NAME: twit
+      NAME: Aleksandr
+    depends_on:
+      - mongo_db  
+    volumes:
+      - /app
+      - /app/node_modules
+volumes:
+  mongo_db: {}
