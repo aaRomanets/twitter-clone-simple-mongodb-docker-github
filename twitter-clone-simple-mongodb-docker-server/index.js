@@ -1,10 +1,13 @@
-const express = require('express');
-const dotenv = require('dotenv');
+const express = require("express");
 
-const bodyParser = require('body-parser');
+//среда установки
+const dotenv = require("dotenv");
+dotenv.config();
+
+const bodyParser = require("body-parser");
 
 //вытаскиваем cors аналог proxy
-const cors = require('cors');
+const cors = require("cors");
 
 //вытаскиваем passport - модуль доступа
 const passport = require('passport');
@@ -15,13 +18,10 @@ const users = require('./routes/users');
 //вытаскиваем маршрутизатор по поcтам
 const posts = require('./routes/posts');
 
-//среда установки
-dotenv.config();
-
 //вытаскиваем  mongoose модуль подключения к базе данных mongodb
 const mongoose = require('mongoose');
 //подключаем базу данных Mongo DB
-mongoose.connect(process.env.MONGODB_URI != undefined ? process.env.MONGODB_URI : "mongodb://localhost:27017" , {
+mongoose.connect(process.env.MONGODB_URI != undefined ? process.env.MONGODB_URI : "mongodb://127.0.0.1:27017" , {
   dbName: process.env.DB_NAME != undefined ? process.env.DB_NAME : "twit",
   useNewUrlParser: true,
   useUnifiedTopology: true,
